@@ -1,16 +1,15 @@
  {#
-    This macro returns the description of the payment_type 
+    This macro returns the Name of company
+    unfortunately column is dropped since its not filled with any, but made with given data for future iterations  
 #}
 
-{% macro get_payment_type_description(payment_type) -%}
+{% macro get_company_Name(hvfhs_license_num) -%}
 
-    case {{ payment_type }}
-        when 1 then 'Credit card'
-        when 2 then 'Cash'
-        when 3 then 'No charge'
-        when 4 then 'Dispute'
-        when 5 then 'Unknown'
-        when 6 then 'Voided trip'
+    case {{ hvfhs_license_num }}
+        when 'HV0002' then 'Juno'
+        when 'HV0003' then 'Uber'
+        when 'HV0004' then 'Via'
+        when 'HV0005' then 'Lyft'
     end
 
 {%- endmacro %}
