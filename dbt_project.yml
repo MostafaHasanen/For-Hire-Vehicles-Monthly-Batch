@@ -1,7 +1,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'taxi_rides_ny'
+name: 'New_York_For_Hire_Vehicles'
 version: '1.0.0'
 config-version: 2
 
@@ -23,7 +23,6 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_packages"
 
-
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -31,17 +30,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  taxi_rides_ny:
+  New_York_For_Hire_Vehicles:
       # Applies to all files under models/.../
       staging:
           materialized: view
       core:
           materialized: table
-vars:
-  payment_type_values: [1, 2, 3, 4, 5, 6]
 
 seeds: 
-    taxi_rides_ny:
+    New_York_For_Hire_Vehicles:
         taxi_zone_lookup:
             +column_types:
                 locationid: numeric
