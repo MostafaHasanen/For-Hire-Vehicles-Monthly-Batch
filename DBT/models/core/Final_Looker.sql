@@ -40,7 +40,7 @@ SELECT
     fhv_data.driver_pay
 
 FROM fhv_data
-inner join dimension_zones AS pickup_zone
+left join dimension_zones AS pickup_zone
 ON fhv_data.PickUp_LocationID = pickup_zone.locationid
-inner join dimension_zones AS dropoff_zone
+left join dimension_zones AS dropoff_zone
 ON fhv_data.DropOff_LocationID = dropoff_zone.locationid
