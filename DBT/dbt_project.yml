@@ -42,3 +42,7 @@ seeds:
         taxi_zone_lookup:
             +column_types:
                 locationid: numeric
+
+vars:
+  # The `start_date` variable will be accessible in all resources
+  execution_date: '2016-06-01'

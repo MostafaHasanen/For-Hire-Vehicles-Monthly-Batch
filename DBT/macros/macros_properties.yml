@@ -10,3 +10,12 @@ macros:
         description: > 
           hvfhs_license_num value.
           Must be one of the accepted values, otherwise the macro will return null
+  
+  - name: formatted_date
+    description: >
+      This macro return execution_date in required format.
+    arguments:
+      - name: execution_date
+        type: timestamp
+        description: > 
+          execution_date value.

@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: dimension_zones
+    description: >
+      List of unique zones identified by locationid.
+      Includes the service zone they correspond to (Green or yellow).
+  - name: Final_Looker
+    description: >
+      Final Table containing all available informations provided by the NewYork TLC website for the For-Hire-Vehicles. 
+      
+  # To be Constructed
+  # - name: dm_monthly_zone_revenue
+  #   description: >
+  #     Aggregated table of all taxi trips corresponding to both service zones (Green and yellow) and For Hire Vehicles
+  #     per pickup zone, month and service.
+  #     The table contains monthly sums of the fare elements used to calculate the monthly revenue. 
+  #     The table contains also monthly indicators like number of trips, and average trip distance. 
+  #   columns:
+  #     - name: revenue_monthly_total_amount
+  #       description: Monthly sum of the the total_amount of the fare charged for the trip per pickup zone, month and service.
+  #       tests:
+  #           - not_null:
+  #               severity: error
