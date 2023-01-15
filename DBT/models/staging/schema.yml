@@ -1,85 +1,88 @@
 version: 2
 
 sources:
-    - name: staging
-      #For bigquery:
-      database: de-zoom-359609
+  - name: staging
+    #For bigquery:
+    database: de-zoom-359609
 
-      schema: ForHireVehiclesMAIN_1stApproach
+    schema: ForHireVehiclesMAIN_1stApproach
 
-      # loaded_at_field: record_loaded_at
-      tables:
-        - name: FHVHV_ALL_Data
-         # freshness:
-           # error_after: {count: 6, period: hour}
+    # loaded_at_field: record_loaded_at
+    tables:
+      - name: FHVHV_ALL_Data
+        # freshness:
+          # error_after: {count: 6, period: hour}
 
 models:
-    - name: staging_For-hire-vehicles.sql
-      description: >
-        Trip made by any Hired vehicles (Like Uber and Careem) in NewYork City.
-        FHV dispatched by one of NYC’s licensed High Volume FHV bases.
-        On August 14, 2018, Mayor de Blasio signed Local Law 149 of 2018, creating a new license category 
-        for TLC-licensed FHV businesses that currently dispatch or plan to dispatch 
-        more than 10,000 FHV trips in New York City per day under a single brand, trade, or operating name, 
-        referred to as High-Volume For-Hire Services (HVFHS). This law went into effect on Feb 1, 2019 (Data Start). 
-      columns:
-          - name: dispatching_base_num
-            description: The TLC Base License Number of the base that dispatched the trip.
-            tests:
-                - unique:
-                    severity: warn
-                - not_null:
-                    severity: warn
-          - name: originating_base_num 
-            description: base number of the base that received the original trip request.
-          - name: request_datetime 
-            description: date/time when passenger requested to be picked up.
-          - name: on_scene_datetime	 
-            description: date/time when driver arrived at the pick-up location (Accessible Vehicles-only).
-          - name: pickup_datetime 
-            description: The date and time of the trip pick-up.
-          - name: dropoff_datetime 
-            description: The date and time of the trip drop-off.
-          - name: PULocationID 
-            description: TLC Taxi Zone in which the trip began.
-            tests:
-              - relationships:
-                  to: ref('taxi_zone_lookup')
-                  field: locationid
-                  severity: warn
-          - name: DOLocationID
-            description: TLC Taxi Zone in which the trip ended.
-            tests:
-              - relationships:
-                  to: ref('taxi_zone_lookup')
-                  field: locationid
-          - name: trip_miles 
-            description: total miles for passenger trip.
-          - name: trip_time 
-            description: total time in seconds for passenger trip
-          - name: base_passenger_fare 
-            description: base passenger fare before tolls, tips, taxes, and fees.
-          - name: tolls 
-            description: total amount of all tolls paid in trip.
-          - name: bcf 
-            description: total amount collected in trip for Black Car Fund.
-          - name: sales_tax 
-            description: total amount collected in trip for NYS sales tax.
-          - name: congestion_surcharge
-            description: total amount collected in trip for NYS congestion surcharge.
-          - name: airport_fee 
-            description: $2.50 for both drop off and pick up at LaGuardia, Newark, and John F. Kennedy airports.
-          - name: tips 
-            description: total amount of tips received from passenger.
-          - name: driver_pay 
-            description: total driver pay (not including tolls or tips and net of commission, surcharges, or taxes).
-          - name: shared_request_flag 
-            description: Did the passenger agree to a shared/pooled ride, regardless of whether they were matched? (Y/N).
-          - name: shared_match_flag 
-            description: Did the passenger share the vehicle with another passenger who booked separately at any point during the trip? (Y/N).
-          - name: access_a_ride_flag 
-            description: Was the trip administered on behalf of the Metropolitan Transportation Authority (MTA)? (Y/N).
-          - name: wav_request_flag 
-            description: Did the passenger request a wheelchair-accessible vehicle (WAV)? (Y/N).
-          - name: wav_match_flag 
-            description: Did the trip occur in a wheelchair-accessible vehicle (WAV)? (Y/N).
+  - name: staging_For-hire-vehicles
+    description: >
+      Trip made by any Hired vehicles (Like Uber and Careem) in NewYork City.
+      FHV dispatched by one of NYC's licensed High Volume FHV bases.
+      On August 14, 2018, Mayor de Blasio signed Local Law 149 of 2018, creating a new license category 
+      for TLC-licensed FHV businesses that currently dispatch or plan to dispatch 
+      more than 10,000 FHV trips in New York City per day under a single brand, trade, or operating name, 
+      referred to as High-Volume For-Hire Services (HVFHS). This law went into effect on Feb 1, 2019 (Data Start). 
+    columns:
+      - name: TripID
+        description: Ultimate unique ID for each record entered in table.
+      - name: dispatching_base_num
+        description: The TLC Base License Number of the base that dispatched the trip.
+        tests:
+            - unique:
+                severity: warn
+            - not_null:
+                severity: warn
+      - name: originating_base_num 
+        description: base number of the base that received the original trip request.
+      - name: request_datetime 
+        description: date/time when passenger requested to be picked up.
+      - name: on_scene_datetime	 
+        description: date/time when driver arrived at the pick-up location (Accessible Vehicles-only).
+      - name: pickup_datetime 
+        description: The date and time of the trip pick-up.
+      - name: dropoff_datetime 
+        description: The date and time of the trip drop-off.
+      - name: PickUp_LocationID 
+        description: TLC Taxi Zone in which the trip began.
+        tests:
+          - relationships:
+              to: ref('taxi_zone_lookup')
+              field: locationid
+              severity: warn
+      - name: DropOff_LocationID
+        description: TLC Taxi Zone in which the trip ended.
+        tests:
+          - relationships:
+              to: ref('taxi_zone_lookup')
+              field: locationid
+              severity: warn
+      - name: trip_miles 
+        description: total miles for passenger trip.
+      - name: trip_time 
+        description: total time in seconds for passenger trip
+      - name: base_passenger_fare 
+        description: base passenger fare before tolls, tips, taxes, and fees.
+      - name: tolls 
+        description: total amount of all tolls paid in trip.
+      - name: black_car_fund 
+        description: total amount collected in trip for Black Car Fund.
+      - name: sales_tax 
+        description: total amount collected in trip for NYS sales tax.
+      - name: congestion_surcharge
+        description: total amount collected in trip for NYS congestion surcharge.
+      - name: airport_fee 
+        description: $2.50 for both drop off and pick up at LaGuardia, Newark, and John F. Kennedy airports.
+      - name: tips 
+        description: total amount of tips received from passenger.
+      - name: driver_pay 
+        description: total driver pay (not including tolls or tips and net of commission, surcharges, or taxes).
+      - name: shared_request_flag 
+        description: Did the passenger agree to a shared/pooled ride, regardless of whether they were matched? (Y/N).
+      - name: shared_match_flag 
+        description: Did the passenger share the vehicle with another passenger who booked separately at any point during the trip? (Y/N).
+      - name: access_a_ride_flag 
+        description: Was the trip administered on behalf of the Metropolitan Transportation Authority (MTA)? (Y/N).
+      - name: wav_request_flag 
+        description: Did the passenger request a wheelchair-accessible vehicle (WAV)? (Y/N).
+      - name: wav_match_flag 
+        description: Did the trip occur in a wheelchair-accessible vehicle (WAV)? (Y/N).

@@ -16,7 +16,7 @@
 
 {% macro formatted_date(execution_date) %}
 
-  {% set execution_date_obj = modules.datetime.datetime.strptime(execution_date|string, "%Y%m%d") %}
+  {% set execution_date_obj = modules.datetime.datetime.strptime(execution_date|string, "%Y-%m-%d") %}
   {{ return(execution_date_obj.strftime("%Y-%m")) }}
 
 {% endmacro %}
