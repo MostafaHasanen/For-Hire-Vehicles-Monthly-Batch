@@ -7,7 +7,6 @@ WITH fhv_data AS (
 
 dimension_zones AS (
     SELECT * FROM {{ ref('dimension_zones') }}
-    --WHERE borough != 'Unknown'
 )
 SELECT
     fhv_data.TripID,
