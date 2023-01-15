@@ -1,4 +1,11 @@
-{{ config(materialized='view') }}
+-- materialized='view')
+{{ config(
+    materialized='incremental',
+    partition_by={'field': 'pickup_datetime', 'data_type': 'date'},
+    incremental_strategy='insert_overwrite',
+    partitions=[formatted_date(var('execution_date'))]
+)
+}}
 
 WITH fhv_data AS 
 (
