@@ -5,8 +5,8 @@
 
 WITH fhv_data AS 
 (
-  SELECT *,
-    row_number() OVER(PARTITION BY dispatching_base_num, pickup_datetime) AS rn
+  SELECT *
+    -- ,row_number() OVER(PARTITION BY dispatching_base_num, pickup_datetime) AS rn
   FROM {{ source('staging','FHVHV_ALL_Data') }}
   WHERE dispatching_base_num is not null
 )
@@ -48,7 +48,7 @@ SELECT
     CAST(driver_pay AS NUMERIC) AS driver_pay 
 
 FROM fhv_data
-WHERE rn = 1 
+-- WHERE rn = 1 
 
 -- ease in tryouts during dbt creations.
 -- dbt build --m <model.sql> --var 'is_test_run: false'
