@@ -15,7 +15,7 @@ SELECT
         -- Unique TripID
     {{ dbt_utils.generate_surrogate_key(['dispatching_base_num', 'pickup_datetime']) }} AS TripID,
     CAST(TRIM(dispatching_base_num,'B') AS INTEGER) AS dispatching_base_num,
-    CAST(TRIM(originating_base_num,'B') AS INTEGER) AS originating_base_num,
+    CAST(COALESCE(TRIM(NULLIF(originating_base_num,""),'B'),TRIM(dispatching_base_num,'B')) AS INTEGER) AS originating_base_num,
     CAST(PULocationID AS INTEGER) AS PickUp_LocationID,
     CAST(DOLocationID AS INTEGER) AS DropOff_LocationID,
     
