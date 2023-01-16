@@ -30,10 +30,10 @@ SELECT
     CAST(NULLIF(trip_miles,"") AS NUMERIC) AS trip_miles,
     CAST(NULLIF(trip_time,"") AS INTEGER) AS trip_time,
     --flags
-    COALESCE(NULLIF(shared_request_flag,"", "N") AS shared_request_flag,
-    COALESCE(NULLIF(shared_match_flag,"", "N") AS shared_match_flag,
-    COALESCE(NULLIF(access_a_ride_flag,"", "N") AS access_a_ride_flag,
-    COALESCE(NULLIF(wav_request_flag,"", "N") AS wav_request_flag,
+    COALESCE(NULLIF(shared_request_flag,""), "N") AS shared_request_flag,
+    COALESCE(NULLIF(shared_match_flag,""), "N") AS shared_match_flag,
+    COALESCE(NULLIF(access_a_ride_flag,""), "N") AS access_a_ride_flag,
+    COALESCE(NULLIF(wav_request_flag,""), "N") AS wav_request_flag,
     --can not assume car is not WAV
     COALESCE(NULLIF(wav_match_flag,""), "NA") AS wav_match_flag,
     
