@@ -9,7 +9,6 @@ dimension_zones AS (
     SELECT * FROM {{ ref('dimension_zones') }}
 )
 SELECT
-    fhv_data.TripID,
     fhv_data.dispatching_base_num,
     fhv_data.originating_base_num,
     
